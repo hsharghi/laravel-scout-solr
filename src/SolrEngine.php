@@ -22,9 +22,12 @@ class SolrEngine extends Engine
      * @param Client $client
      */
     public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
+     {
+         $adapter = $client->getAdapter();
+         $adapter->setTimeout(20);
+         $client->setAdapter($adapter);
+         $this->client = $client;
+     }
 
     /**
      * Update the given model in the index.
